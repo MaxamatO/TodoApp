@@ -39,7 +39,7 @@ function Todo(){
 
     return(
         <div className='holder'>
-            <h1>Todo App</h1>
+            <h1>Does it work</h1>
             <div className='inputholder'>
                 <input type="text" placeholder='Add your new TODO' id='taskvalue' ref={inputRef} maxLength={31}/>
                 <button onClick={() => {handleClickAdd()}}><PlusSquareFill className="plusbtn" /></button>
