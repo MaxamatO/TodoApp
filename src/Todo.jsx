@@ -11,12 +11,12 @@ function Todo(){
     const liRef = useRef(null);
 
 
-    
+    const refreshApp = ()=>{
+        setTasks(tasks);
+    }
     useEffect(()=>{
-        const refreshApp = ()=>{
-            setTasks(tasks);
-        };
         refreshApp();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     function addTask(name) {
