@@ -11,10 +11,11 @@ function Todo(){
     const liRef = useRef(null);
 
 
-    const refreshApp = ()=>{
-        setTasks(tasks);
-    }
+    
     useEffect(()=>{
+        const refreshApp = ()=>{
+            setTasks(tasks);
+        };
         refreshApp();
     }, []);
 
