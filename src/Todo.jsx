@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import { useState, useRef } from 'react';
 import {PlusSquareFill, XSquareFill} from 'react-bootstrap-icons'
 import './App.css'
+import {motion} from 'framer-motion';
 
 function Todo(){
 
@@ -43,16 +44,24 @@ function Todo(){
             <h1>Todo App</h1>
             <div className='inputholder'>
                 <input type="text" placeholder='Add your new TODO' id='taskvalue' ref={inputRef} maxLength={31}/>
-                <button onClick={() => {handleClickAdd()}}><PlusSquareFill className="plusbtn" /></button>
+                <motion.button
+                    whileTap={{scale: 0.9}}
+                    whileHover={{scale: 1.05}}
+                    onClick={() => {handleClickAdd()}}
+                  >
+                    <PlusSquareFill className="plusbtn" /></motion.button>
             </div>
             <div className='taskholder' >
             {tasks.map((task) => {
                 return (
                     <ul className='tasklist' key={task}>
                         <li ref={liRef}>{task}</li>
-                        <button className='btn' onClick={() => {removeTask(task)}}>
+                        <motion.button
+                        whileTap={{scale: 0.9}}
+                        whileHover={{scale: 1.05}}
+                        className='btn' onClick={() => {removeTask(task)}}>
                             <XSquareFill className='xbtn'/>
-                        </button>
+                        </motion.button>
                     </ul>
                 )
                 })}

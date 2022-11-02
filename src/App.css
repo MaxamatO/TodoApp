@@ -113,11 +113,11 @@ button{
   border-left-width: 0; border-right-width: 0;
   white-space: nowrap;
   margin-left: 24.5rem;
-  transform: translateY(-4.2rem);
-
 }
 
 .xbtn{
+  display: flex;
+  transform: translateY(-4.2rem);
   width: 48px;
   height: 48px;
   color: rgb(197, 115, 115);
