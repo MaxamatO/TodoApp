@@ -10,6 +10,7 @@ function Todo(){
     const [tasks, setTasks] = useState([]);
     const inputRef = useRef(null);
     const liRef = useRef(null);
+    const timeOutRef = useRef(null);
 
 
     const refreshApp = ()=>{
@@ -20,6 +21,8 @@ function Todo(){
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
+    
+
     function addTask(name) {
         if(!tasks.includes(name.trim()) && name.trim()!=="" && tasks.length < 5){
             setTasks([...tasks, name.trim()]);
@@ -27,8 +30,14 @@ function Todo(){
         }
     }
 
+    // Add id taskitem-moved to specific li element on button click to animate the removal of the taskitem
     const removeTask = (name) => {
-        setTasks(tasks.filter(task => task !== name))
+        let taskitem = document.getElementsByClassName('taskitem');
+        
+        clearTimeout(timeOutRef.current);
+        timeOutRef.current = setTimeout(() => {
+            setTasks(tasks.filter(task => task !== name))
+        }, 300);
     }
 
     const removeAllTasks = () => {
@@ -55,9 +64,10 @@ function Todo(){
             {tasks.map((task) => {
                 return (
                     <ul className='tasklist' key={task}>
-                        <li ref={liRef}>{task}</li>
+                        <li className='taskitem' ref={liRef}>{task}</li>
                         <motion.button
-                        whileTap={{scale: 0.9}}
+                        whileTap={{scale: 1}}
+
                         whileHover={{scale: 1.05}}
                         className='btn' onClick={() => {removeTask(task)}}>
                             <XSquareFill className='xbtn'/>
@@ -68,7 +78,8 @@ function Todo(){
             </div>
             <div className='footer'>
                 <span>You have {tasks.length}/5 pending tasks</span>
-                <button className='xallbtn' onClick={()=>{removeAllTasks()}}>Clear all</button>
+                <motion.button whileTap={{scale: 0.9}}
+                        whileHover={{scale: 1.05}} className='xallbtn' onClick={()=>{removeAllTasks()}}>Clear all</motion.button>
             </div>
         </div>
     )

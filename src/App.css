@@ -13,6 +13,7 @@ body, html, #root{
   display: flex;
   justify-content: center;
   align-items: center;
+  
 }
 body{
   background-color: transparent!important;
@@ -27,6 +28,8 @@ body{
   border-radius: 10px;
   box-shadow: 5px 10px #00000065;
   z-index: 1;
+  overflow: hidden;
+
 }
 
 h1{
@@ -81,6 +84,7 @@ button{
 }
 .taskholder{
   width: 100%;
+  
 }
 .tasklist{
   margin-bottom: 0;
@@ -88,6 +92,7 @@ button{
   list-style-type: none;
   text-align: left;
   width: 100%;
+
 }
 
 .tasklist li{
@@ -158,8 +163,14 @@ span{
 
 .xallbtn:hover{
   background-color: #170f88ad;
-
 }
+
+#taskitem-moved{
+  transform: translate(-200%);
+  transition: transform 0.5s;
+}
+
+
 
 
 
