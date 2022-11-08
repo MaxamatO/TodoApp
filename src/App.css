@@ -169,16 +169,3 @@ span{
   transform: translate(-200%);
   transition: transform 0.5s;
 }
-
-
-
-
-
-/* To implement with javascript
-@keyframes shortenTask {
-  from{  width: 100%;  }
-  to{  width: 87%;
-  }
-}
-*/
-
