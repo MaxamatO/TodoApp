@@ -1,6 +1,6 @@
 import React from "react";
 import "./TaskPopup.css";
-import { PlusSquareFill, XSquareFill } from "react-bootstrap-icons";
+import { XSquareFill } from "react-bootstrap-icons";
 import { motion } from "framer-motion";
 
 // TODO: Complete the Popupwindow layout

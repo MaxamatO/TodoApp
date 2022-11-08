@@ -5,7 +5,6 @@
 }
 
 html{
-
   background: linear-gradient(360deg,#1106acf8, #a7e0e4);
 }
 body, html, #root{
@@ -14,7 +13,6 @@ body, html, #root{
   display: flex;
   justify-content: center;
   align-items: center;
-
 }
 body{
   background-color: transparent!important;
@@ -30,7 +28,6 @@ body{
   box-shadow: 5px 10px #00000065;
   z-index: 1;
   overflow: hidden;
-  
 }
 
 h1{
