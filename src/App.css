@@ -5,6 +5,7 @@
 }
 
 html{
+
   background: linear-gradient(360deg,#1106acf8, #a7e0e4);
 }
 body, html, #root{
@@ -13,7 +14,7 @@ body, html, #root{
   display: flex;
   justify-content: center;
   align-items: center;
-  
+
 }
 body{
   background-color: transparent!important;
@@ -29,7 +30,7 @@ body{
   box-shadow: 5px 10px #00000065;
   z-index: 1;
   overflow: hidden;
-
+  
 }
 
 h1{
@@ -103,12 +104,15 @@ button{
   background-color: #918e8e3a;
   margin-bottom: 0.3rem;
   height: 5vh;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .tasklist li:hover{
   background-color: #918e8e7c;
   z-index: 0;
-
+  cursor: pointer;
 }
 .btn{
   border: none;

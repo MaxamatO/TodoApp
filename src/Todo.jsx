@@ -4,12 +4,15 @@ import { useState, useRef } from "react";
 import { PlusSquareFill, XSquareFill } from "react-bootstrap-icons";
 import "./App.css";
 import { motion } from "framer-motion";
+import TaskPopup from "./TaskPopup";
 
 function Todo() {
   const [tasks, setTasks] = useState([]);
   const inputRef = useRef(null);
   const liRef = useRef(null);
   const timeOutRef = useRef(null);
+  const [taskToDisplay, setTaskToDisplay] = useState("");
+  const [isDisplayed, setIsDisplayed] = useState(false);
 
   const refreshApp = () => {
     setTasks(tasks);
@@ -62,7 +65,13 @@ function Todo() {
     addTask(inputRef.current.value);
   };
 
+  const displayPopup = (task) => {
+    setTaskToDisplay(task);
+    setIsDisplayed(true);
+  }
+
   return (
+    
     <div className="holder">
       <h1>Todo App</h1>
       <div className="inputholder">
@@ -71,7 +80,7 @@ function Todo() {
           placeholder="Add your new TODO"
           id="taskvalue"
           ref={inputRef}
-          maxLength={31}
+          maxLength={60}
         />
         <motion.button
           whileTap={{ scale: 0.9 }}
@@ -87,7 +96,7 @@ function Todo() {
         {tasks.map((task) => {
           return (
             <ul className="tasklist" key={task}>
-              <li className="taskitem" ref={liRef}>
+              <li onClick={() => {displayPopup(task)}} className="taskitem" ref={liRef}>
                 {task}
               </li>
               <motion.button
@@ -117,6 +126,9 @@ function Todo() {
           Clear all
         </motion.button>
       </div>
+      <TaskPopup trigger={isDisplayed} setTrigger={setIsDisplayed} >
+          {taskToDisplay}
+      </TaskPopup>
     </div>
   );
 }
