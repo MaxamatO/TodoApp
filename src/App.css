@@ -62,7 +62,6 @@ input::placeholder{
   height: 48px;
   margin-left: 0.6rem;
   padding: 0;
-
 }
 
 .plusbtn:hover{
@@ -170,3 +169,4 @@ span{
   transform: translate(-200%);
   transition: transform 0.5s;
 }
+
