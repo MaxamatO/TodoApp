@@ -1,7 +1,7 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useEffect } from "react";
 import { useState, useRef } from "react";
-import { PlusSquareFill, XSquareFill } from "react-bootstrap-icons";
+import { PlusSquareFill, XSquareFill, CheckSquareFill } from "react-bootstrap-icons";
 import "./App.css";
 import { motion } from "framer-motion";
 import TaskPopup from "./TaskPopup";
@@ -49,6 +49,13 @@ function Todo() {
       setTasks(tasks.filter((task) => task !== name));
     }, 300);
   };
+
+  const removeTaskFromDetails = (name) => {
+    setTasks(tasks.filter((task) => task !== name.taskToDisplay));
+    console.log(tasks);
+    setTaskToDisplay("");
+    setIsDisplayed(false);
+  }
 
   const removeAllTasks = () => {
     let taskitems = document.getElementsByTagName("li");
@@ -126,8 +133,27 @@ function Todo() {
           Clear all
         </motion.button>
       </div>
-      <TaskPopup trigger={isDisplayed} setTrigger={setIsDisplayed} >
-          {taskToDisplay}
+      <TaskPopup trigger={isDisplayed} task={taskToDisplay} setTrigger={setIsDisplayed} >
+        <div className="popup-footer">
+          <p className="date-info">Created at:</p>
+          <motion.button
+            whileTap={{ scale: 1 }}
+            whileHover={{ scale: 1.05 }}
+            className="popup-btn"
+            >
+            <CheckSquareFill className="popup-xbtn check-btn" />
+          </motion.button>
+          <motion.button
+            whileTap={{ scale: 1 }}
+            whileHover={{ scale: 1.05 }}
+            className="popup-btn"
+            onClick={()=>{
+              removeTaskFromDetails({taskToDisplay})
+            }}
+            >
+            <XSquareFill className="popup-xbtn" />
+          </motion.button>
+        </div>
       </TaskPopup>
     </div>
   );
