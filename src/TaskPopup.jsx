@@ -1,29 +1,19 @@
 import React from "react";
 import "./TaskPopup.css";
-import { XSquareFill } from "react-bootstrap-icons";
-import { motion } from "framer-motion";
-
+import { X } from "react-bootstrap-icons";
 // TODO: Complete the Popupwindow layout
 function TaskPopup(props) {
     return (props.trigger) ? (
         <div className="popup">
             <div className="popup-inner">
-                
-                <h3>Task details press to close</h3>
-                <button onClick={(()=>{props.setTrigger(false)})}>X</button>
+                <div className="popup-head">
+                    <h3>Task details</h3>
+                    <button className="close-btn" onClick={(()=>{props.setTrigger(false)})}><X className="close-xbtn"/></button>
+                </div>
                 <div className="content">
-                    <p className="task-info">{props.children}</p>
+                    <p className="task-info">{props.task}</p>
                 </div>
-                <div className="popup-footer">
-                    <p className="date-info">Created at: {props.date}</p>
-                    <motion.button
-                    whileTap={{ scale: 1 }}
-                    whileHover={{ scale: 1.05 }}
-                    className="popup-btn"
-                    >
-                    <XSquareFill className="popup-xbtn" />
-                </motion.button>
-                </div>
+                {props.children}
             </div>
         </div>
     ) : "";
