@@ -38,7 +38,6 @@ function Todo() {
         let currentDate = date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear();
         setTasks([...tasks, {taskValue: name, creationDate: currentDate, id: crypto.randomUUID()}]);
         document.getElementById("taskvalue").value = "";
-        console.log(tasks);
         return;
       }
     }
@@ -46,15 +45,13 @@ function Todo() {
 
   const removeTask = (id) => {
     let taskitem = document.getElementById(id);
-      let button = document.getElementById(id+"btn");
-
+    let button = document.getElementById(id+"btn");
     clearTimeout(timeOutRef.current);
     timeOutRef.current = setTimeout(() => {
       setTasks(tasks.filter((task) => task.id !== id));
     }, 100);
     button.style.display = "none" 
     taskitem.id = "taskitem-moved"
-
   };
 
   const removeTaskFromDetails = (id) => {
@@ -64,6 +61,8 @@ function Todo() {
   }
 
   const removeAllTasks = () => {
+    if(tasks.length !== 0){
+    }
     let taskitems = document.getElementsByTagName("li");
     for (let i = 0; i < taskitems.length; i++) {
       taskitems[i].id = "taskitem-moved";
@@ -84,8 +83,10 @@ function Todo() {
   }
 
   return (
-    
-    <div className="holder">
+    <main>
+      
+      <div className="holder">
+      
       <h1>Todo App</h1>
       <div className="inputholder">
         <input
@@ -147,6 +148,9 @@ function Todo() {
             whileTap={{ scale: 1 }}
             whileHover={{ scale: 1.05 }}
             className="popup-btn"
+            onClick={()=>{
+              removeTaskFromDetails((taskToDisplay.id))
+            }}
             >
             <CheckSquareFill className="popup-xbtn check-btn" />
           </motion.button>
@@ -163,7 +167,31 @@ function Todo() {
         </div>
       </TaskPopup>
     </div>
+    </main>
+    
   );
 }
+
+// function GreenBanner(){
+//   return (
+//     <Banner className="banner"
+//         title="Task has been completed successfully" 
+//         css={{backgroundColor:"rgba(110, 201, 118, 0.74)"}}
+//         visibleTime={300}
+
+//       />
+//   );
+// }
+
+// function RedBanner(){
+//   return (
+//     <Banner className="banner"
+//         title="Deleted successfully." 
+//         css={{backgroundColor:"rgba(201, 110, 110, 0.74)"}}
+//         visibleTime={300}
+        
+//       />
+//   );
+// }
 
 export default Todo;
