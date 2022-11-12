@@ -7,15 +7,23 @@ import { motion } from "framer-motion";
 import TaskPopup from "./TaskPopup";
 
 function Todo() {
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState([{
+    taskValue: "",
+    creationDate: "",
+    id: ""
+  }]);
   const inputRef = useRef(null);
   const liRef = useRef(null);
   const timeOutRef = useRef(null);
-  const [taskToDisplay, setTaskToDisplay] = useState("");
+  const [taskToDisplay, setTaskToDisplay] = useState({
+    taskValue: "",
+    creationDate: "",
+    id: ""
+  });
   const [isDisplayed, setIsDisplayed] = useState(false);
 
   const refreshApp = () => {
-    setTasks(tasks);
+    setTasks(tasks.filter(task => task.id !== ""));
   };
   useEffect(() => {
     refreshApp();
@@ -23,37 +31,35 @@ function Todo() {
   }, []);
 
   function addTask(name) {
-    if (
-      !tasks.includes(name.trim()) &&
-      name.trim() !== "" &&
-      tasks.length < 5
-    ) {
-      setTasks([...tasks, name.trim()]);
-      document.getElementById("taskvalue").value = "";
-      return;
+    for(let i=0; i<= tasks.length; i++){
+      if(name.trim() !== "" &&
+      tasks.length < 5){
+        let date = new Date();
+        let currentDate = date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear();
+        setTasks([...tasks, {taskValue: name, creationDate: currentDate, id: crypto.randomUUID()}]);
+        document.getElementById("taskvalue").value = "";
+        console.log(tasks);
+        return;
+      }
     }
   }
 
-  const removeTask = (name) => {
-    let taskitems = document.getElementsByTagName("li");
-    let result;
-    console.log(taskitems);
-    for (let i = 0; i < taskitems.length; i++) {
-      if (taskitems[i].outerText === name) {
-        result = taskitems[i];
-      }
-    }
-    result.id = "taskitem-moved";
+  const removeTask = (id) => {
+    let taskitem = document.getElementById(id);
+      let button = document.getElementById(id+"btn");
+
     clearTimeout(timeOutRef.current);
     timeOutRef.current = setTimeout(() => {
-      setTasks(tasks.filter((task) => task !== name));
-    }, 300);
+      setTasks(tasks.filter((task) => task.id !== id));
+    }, 100);
+    button.style.display = "none" 
+    taskitem.id = "taskitem-moved"
+
   };
 
-  const removeTaskFromDetails = (name) => {
-    setTasks(tasks.filter((task) => task !== name.taskToDisplay));
-    console.log(tasks);
-    setTaskToDisplay("");
+  const removeTaskFromDetails = (id) => {
+    setTasks(tasks.filter((task) => task.id !== id));
+    setTaskToDisplay({});
     setIsDisplayed(false);
   }
 
@@ -100,21 +106,22 @@ function Todo() {
         </motion.button>
       </div>
       <div className="taskholder">
-        {tasks.map((task) => {
+        {tasks.filter(task => task.id !== "").map((task) => {
           return (
-            <ul className="tasklist" key={task}>
-              <li onClick={() => {displayPopup(task)}} className="taskitem" ref={liRef}>
-                {task}
+            <ul className="tasklist" key={task.id}>
+              <li id={task.id} onClick={() => {displayPopup(task)}} className="taskitem" ref={liRef}>
+                {task.taskValue}
               </li>
               <motion.button
-                whileTap={{ scale: 1 }}
+                whileTap={{ scale: 0.9 }}
                 whileHover={{ scale: 1.05 }}
                 className="btn"
+                disabled={false}
                 onClick={() => {
-                  removeTask(task);
+                  removeTask(task.id);
                 }}
               >
-                <XSquareFill className="xbtn" />
+                <XSquareFill id={(task.id)+"btn"} className="xbtn" />
               </motion.button>
             </ul>
           );
@@ -135,7 +142,7 @@ function Todo() {
       </div>
       <TaskPopup trigger={isDisplayed} task={taskToDisplay} setTrigger={setIsDisplayed} >
         <div className="popup-footer">
-          <p className="date-info">Created at:</p>
+          <p className="date-info">Created at: {taskToDisplay.creationDate} </p>
           <motion.button
             whileTap={{ scale: 1 }}
             whileHover={{ scale: 1.05 }}
@@ -148,7 +155,7 @@ function Todo() {
             whileHover={{ scale: 1.05 }}
             className="popup-btn"
             onClick={()=>{
-              removeTaskFromDetails({taskToDisplay})
+              removeTaskFromDetails((taskToDisplay.id))
             }}
             >
             <XSquareFill className="popup-xbtn" />
