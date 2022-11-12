@@ -11,7 +11,7 @@ function TaskPopup(props) {
                     <button className="close-btn" onClick={(()=>{props.setTrigger(false)})}><X className="close-xbtn"/></button>
                 </div>
                 <div className="content">
-                    <p className="task-info">{props.task}</p>
+                    <p className="task-info">{props.task.taskValue}</p>
                 </div>
                 {props.children}
             </div>
