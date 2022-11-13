@@ -32,8 +32,7 @@ function Todo() {
 
   function addTask(name) {
     for(let i=0; i<= tasks.length; i++){
-      if(name.trim() !== "" &&
-      tasks.length < 5){
+      if(name.trim() !== ""){
         let date = new Date();
         let currentDate = date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear();
         setTasks([...tasks, {taskValue: name, creationDate: currentDate, id: crypto.randomUUID()}]);
@@ -129,7 +128,7 @@ function Todo() {
         })}
       </div>
       <div className="footer">
-        <span>You have {tasks.length}/5 pending tasks</span>
+        <span>You have {tasks.length} pending tasks</span>
         <motion.button
           whileTap={{ scale: 0.9 }}
           whileHover={{ scale: 1.05 }}
