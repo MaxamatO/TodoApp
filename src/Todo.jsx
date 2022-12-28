@@ -1,7 +1,6 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import { useEffect } from "react";
 import { useState, useRef } from "react";
-import { PlusSquareFill, XSquareFill, CheckSquareFill } from "react-bootstrap-icons";
+import { PlusSquareFill, XSquareFill, CheckSquareFill} from "react-bootstrap-icons";
 import "./App.css";
 import { motion } from "framer-motion";
 import TaskPopup from "./TaskPopup";
@@ -22,24 +21,14 @@ function Todo() {
   });
   const [isDisplayed, setIsDisplayed] = useState(false);
 
-  const refreshApp = () => {
-    setTasks(tasks.filter(task => task.id !== ""));
-  };
-  useEffect(() => {
-    refreshApp();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   function addTask(name) {
-    for(let i=0; i<= tasks.length; i++){
-      if(name.trim() !== ""){
-        let date = new Date();
-        let currentDate = date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear();
-        setTasks([...tasks, {taskValue: name, creationDate: currentDate, id: crypto.randomUUID()}]);
-        document.getElementById("taskvalue").value = "";
-        return;
-      }
-    }
+    if(name.trim() === "") return;
+    let date = new Date();
+    let currentDate = date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear();
+    setTasks([...tasks, {taskValue: name, creationDate: currentDate, id: crypto.randomUUID()}]);
+    document.getElementById("taskvalue").value = "";
+    
   }
 
   const removeTask = (id) => {
@@ -83,9 +72,7 @@ function Todo() {
 
   return (
     <main>
-      
       <div className="holder">
-      
       <h1>Todo App</h1>
       <div className="inputholder">
         <input
